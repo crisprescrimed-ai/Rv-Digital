@@ -1,10 +1,10 @@
 # RV Digital - Gestão de Metas e Ações
 
-Plataforma comercial responsiva com autenticação por perfil, metas, resultados, indicadores, importações, relatórios, comunicação, auditoria e ações de gestão.
+Plataforma comercial responsiva com autenticação por perfil, metas, resultados, indicadores, importações, relatórios, comunicação e ações de gestão.
 
 ## Ambiente publicado
 
-https://rvdigital.up.railway.app
+[https://rvdigital.up.railway.app](https://rvdigital.up.railway.app)
 
 O ambiente usa HTTPS e pode ser acessado por computadores, tablets e celulares conectados à internet. Todos os dispositivos consultam as mesmas informações no PostgreSQL do Railway.
 
@@ -41,6 +41,6 @@ Nunca execute o seed novamente em produção sem intenção explícita: ele atua
 - Dez indicadores oficiais configuráveis, incluindo regras `LOWER_IS_BETTER`.
 - Importação Excel/CSV com prévia, mapeamento, validação e histórico.
 - Dashboards, rankings, alertas e exportações CSV, Excel e PDF.
-- Conversas, notificações e auditoria.
+- Conversas, notificações e registro interno de atividades.
 - Ações de gestão com criação, direcionamento, distribuição ponderada, progresso, comentários e histórico.
 - Layout responsivo validado em desktop e mobile.

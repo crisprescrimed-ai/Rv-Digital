@@ -12,8 +12,8 @@ const indicators = [
   const hash = await bcrypt.hash(process.env.SEED_PASSWORD || 'RVdigital@2026', 12);
   for (const [name,code,type,direction,unit] of indicators) await query('INSERT INTO indicators(name,code,type,direction,unit) VALUES($1,$2,$3,$4,$5) ON CONFLICT(code) DO NOTHING',[name,code,type,direction,unit]);
   for (let index=1;index<=4;index++) await query('INSERT INTO teams(name) VALUES($1) ON CONFLICT(name) DO NOTHING',[`Mesa ${String(index).padStart(2,'0')}`]);
-  const admin = await query("INSERT INTO users(name,email,password_hash,role) VALUES('Administrador RV','admin@rvdigital.com',$1,'SUPER_ADMIN') ON CONFLICT(email) DO UPDATE SET password_hash=EXCLUDED.password_hash RETURNING id",[hash]);
-  const manager = await query("INSERT INTO users(name,email,password_hash,role) VALUES('Cristiano Rocha','gerente@rvdigital.com',$1,'MANAGER') ON CONFLICT(email) DO UPDATE SET password_hash=EXCLUDED.password_hash RETURNING id",[hash]);
+  await query("INSERT INTO users(name,email,password_hash,role) VALUES('Administrador RV','admin@rvdigital.com',$1,'SUPER_ADMIN') ON CONFLICT(email) DO UPDATE SET password_hash=EXCLUDED.password_hash RETURNING id",[hash]);
+  await query("INSERT INTO users(name,email,password_hash,role) VALUES('Cristiano Rocha','gerente@rvdigital.com',$1,'MANAGER') ON CONFLICT(email) DO UPDATE SET password_hash=EXCLUDED.password_hash RETURNING id",[hash]);
   for (let index=1;index<=4;index++) {
     const team = await query('SELECT id FROM teams WHERE name=$1',[`Mesa ${String(index).padStart(2,'0')}`]);
     const supervisor = await query("INSERT INTO users(name,email,password_hash,role,team_id) VALUES($1,$2,$3,'SUPERVISOR',$4) ON CONFLICT(email) DO UPDATE SET team_id=EXCLUDED.team_id RETURNING id",[`Supervisor Mesa ${index}`,`supervisor${index}@rvdigital.com`,hash,team.rows[0].id]);
