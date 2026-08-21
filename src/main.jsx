@@ -10,6 +10,7 @@ import {
 } from 'lucide-react';
 import './styles.css';
 import './actions.css';
+import './overview-dashboard.css';
 import EmployeesPage from './EmployeesPage.jsx';
 import DataSourceSettings from './DataSourceSettings.jsx';
 import TeamPerformance from './TeamPerformance.jsx';
@@ -301,14 +302,14 @@ function DashboardApp({user,onLogout}) {
   return <div className="app-shell">
     {sidebar}
     {mobileOpen && <div className="scrim" onClick={() => setMobileOpen(false)}/>} 
-    <main className="content">
+    <main className="content overview-content">
       <header className="topbar">
         <button className="hamburger" onClick={() => setMobileOpen(true)}><Menu size={23}/></button>
         <div className="crumb"><span>RV Digital</span><ChevronRight size={16}/><b>{active}</b></div>
         <div className="top-actions"><button className="icon-button" onClick={() => setNotice(!notice)}><Bell size={20}/>{unread.length>0&&<i/>}</button><button className="profile-mini" onClick={onLogout} title="Sair"><div className="avatar avatar-main">{user.name.slice(0,2).toUpperCase()}</div><ChevronDown size={16}/></button></div>
       </header>
       {notice && <div className="notification-pop"><b>{unread.length} atualização(ões) não lida(s)</b>{notifications.slice(0,4).map(item=><span key={item.id}>{item.title}{item.body?`: ${item.body}`:''}</span>)}{!notifications.length&&<span>Nenhuma notificação recente.</span>}</div>}
-      <section className="page-heading"><div><p className="eyebrow">PAINEL {user.role === 'SELLER' ? 'INDIVIDUAL' : 'GERENCIAL'}</p><h1>Olá, {user.name.split(' ')[0]}</h1><p className="subtitle">Acompanhe o desempenho da sua operação em tempo real.</p></div><div className="heading-actions"><label className="filter-button"><CalendarDays size={17}/><select value={periodId} onChange={event=>{setPeriodId(event.target.value);refresh(event.target.value);}}>{periods.map(item=><option key={item.id} value={item.id}>{item.name}</option>)}</select><ChevronDown size={16}/></label>{['SUPER_ADMIN','MANAGER'].includes(user.role) && <button className="primary-button" onClick={() => setModal('upload')}><UploadCloud size={18}/>Importar resultados</button>}</div></section>
+      <section className="page-heading overview-hero"><div className="overview-hero-copy"><div className="overview-live"><i/>DADOS OPERACIONAIS EM TEMPO REAL</div><p className="eyebrow">PAINEL {user.role === 'SELLER' ? 'INDIVIDUAL' : 'GERENCIAL'}</p><h1>Olá, {user.name.split(' ')[0]}</h1><p className="subtitle">Metas, ritmo e projeções da operação reunidos para decisões mais rápidas.</p></div><div className="heading-actions"><label className="filter-button overview-period"><CalendarDays size={17}/><span><small>PERÍODO ANALISADO</small><select value={periodId} onChange={event=>{setPeriodId(event.target.value);refresh(event.target.value);}}>{periods.map(item=><option key={item.id} value={item.id}>{item.name}</option>)}</select></span><ChevronDown size={16}/></label>{['SUPER_ADMIN','MANAGER'].includes(user.role) && <button className="primary-button" onClick={() => setModal('upload')}><UploadCloud size={18}/>Importar resultados</button>}</div></section>
 
       {loadError && <div className="api-error">Não foi possível atualizar os dados: {loadError} <button onClick={refresh}>Tentar novamente</button></div>}
 
