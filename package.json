@@ -1,0 +1,32 @@
+{
+  "name": "rv-digital-metas",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "vite build",
+    "start": "node server.cjs",
+    "start:railway": "npm run db:migrate && node server.cjs",
+    "preview": "vite preview --host 0.0.0.0",
+    "db:migrate": "node db/migrate.cjs",
+    "db:seed": "node db/seed.cjs"
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "latest",
+    "vite": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "lucide-react": "latest",
+    "bcryptjs": "latest",
+    "cors": "latest",
+    "csv-stringify": "latest",
+    "express": "latest",
+    "jsonwebtoken": "latest",
+    "multer": "latest",
+    "pg": "latest",
+    "pdfkit": "latest",
+    "xlsx": "latest"
+  },
+  "devDependencies": {}
+}

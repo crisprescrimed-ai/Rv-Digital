@@ -1,0 +1,8 @@
+node_modules
+dist
+.logs
+*.log
+~$*.rtf
+.env
+.env.*
+!.env.example

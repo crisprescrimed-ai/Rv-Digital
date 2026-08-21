@@ -1,0 +1,1867 @@
+{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1046{\fonttbl{\f0\fnil\fcharset0 Calibri;}{\f1\fnil Calibri;}{\f2\fnil\fcharset1 Segoe UI Symbol;}{\f3\fnil\fcharset1 Cambria Math;}{\f4\fnil\fcharset1 Segoe UI Symbol;}{\f5\fnil\fcharset1 Segoe UI Emoji;}}
+{\*\generator Riched20 10.0.19041}{\*\mmathPr\mmathFont3\mwrapIndent1440 }\viewkind4\uc1 
+\pard\sa200\sl276\slmult1\f0\fs22\lang22 # Sistema de Acompanhamento de Metas \f1\emdash  RV Digital\par
+\par
+## 1. Vis\f0\'e3o geral\par
+\par
+O **Sistema de Acompanhamento de Metas RV Digital** ser\'e1 uma plataforma web responsiva, moderna e profissional para acompanhamento di\'e1rio de metas comerciais, permitindo que gestores, supervisores e vendedores acompanhem em tempo real o desempenho individual e coletivo.\par
+\par
+O sistema ter\'e1 como refer\'eancia visual a identidade apresentada da **RV Digital**, utilizando uma interface predominantemente branca, azul-marinho, azul vibrante e tons de azul/lil\'e1s, com cards, gr\'e1ficos, indicadores, barras de progresso e dashboards de f\'e1cil leitura.\par
+\par
+### Objetivos principais\par
+\par
+* Centralizar as metas comerciais.\par
+* Importar metas e resultados atrav\'e9s de planilhas Excel.\par
+* Permitir tratamento autom\'e1tico dos dados importados.\par
+* Mostrar **Meta, Realizado, Diferen\'e7a e Meta/Dia**.\par
+* Permitir acompanhamento individual do vendedor.\par
+* Permitir acompanhamento da performance de cada mesa.\par
+* Permitir acompanhamento gerencial das quatro mesas.\par
+* Controlar altera\'e7\'f5es de metas.\par
+* Bloquear edi\'e7\'e3o de metas ap\'f3s o dia 10 de cada m\'eas.\par
+* Permitir desbloqueio mediante autoriza\'e7\'e3o do Gerente.\par
+* Criar comunica\'e7\'e3o interna entre vendedores, supervisores e grupos.\par
+* Manter hist\'f3rico e auditoria de todas as altera\'e7\'f5es.\par
+\par
+---\par
+\par
+# 2. Estrutura organizacional\par
+\par
+O sistema dever\'e1 trabalhar inicialmente com **4 mesas de supervis\'e3o**.\par
+\par
+### Estrutura\par
+\par
+```text\par
+RV DIGITAL\par
+\f2\u9474?\f0\par
+\f2\u9500?\u9472?\u9472?\f0  Mesa 01\par
+\f2\u9474?\f0    \f2\u9500?\u9472?\u9472?\f0  Vendedor 01\par
+\f2\u9474?\f0    \f2\u9500?\u9472?\u9472?\f0  Vendedor 02\par
+\f2\u9474?\f0    \f2\u9500?\u9472?\u9472?\f0  Vendedor 03\par
+\f2\u9474?\f0    \f2\u9492?\u9472?\u9472?\f0  ... at\'e9 10 ou mais vendedores\par
+\f2\u9474?\f0\par
+\f2\u9500?\u9472?\u9472?\f0  Mesa 02\par
+\f2\u9474?\f0    \f2\u9500?\u9472?\u9472?\f0  Vendedor 01\par
+\f2\u9474?\f0    \f2\u9500?\u9472?\u9472?\f0  Vendedor 02\par
+\f2\u9474?\f0    \f2\u9492?\u9472?\u9472?\f0  ... at\'e9 10 ou mais vendedores\par
+\f2\u9474?\f0\par
+\f2\u9500?\u9472?\u9472?\f0  Mesa 03\par
+\f2\u9474?\f0    \f2\u9492?\u9472?\u9472?\f0  10 ou mais vendedores\par
+\f2\u9474?\f0\par
+\f2\u9492?\u9472?\u9472?\f0  Mesa 04\par
+    \f2\u9492?\u9472?\u9472?\f0  10 ou mais vendedores\par
+```\par
+\par
+### Regra importante\par
+\par
+O sistema **n\'e3o dever\'e1 limitar uma mesa a exatamente 10 vendedores**.\par
+\par
+A configura\'e7\'e3o inicial ser\'e1 de 10 vendedores por mesa, mas o banco de dados dever\'e1 permitir:\par
+\par
+```text\par
+Mesa \f3\u8594?\f0  10 vendedores\par
+Mesa \f3\u8594?\f0  15 vendedores\par
+Mesa \f3\u8594?\f0  20 vendedores\par
+Mesa \f3\u8594?\f0  N vendedores\par
+```\par
+\par
+Assim, o sistema continuar\'e1 funcionando mesmo com crescimento da equipe.\par
+\par
+---\par
+\par
+# 3. Perfis de acesso\par
+\par
+O sistema ter\'e1 quatro n\'edveis principais de usu\'e1rio:\par
+\par
+| Perfil     | Acesso                                      |\par
+| ---------- | ------------------------------------------- |\par
+| SuperAdmin | Controle total do sistema                   |\par
+| Gerente    | Gest\'e3o geral, importa\'e7\'f5es e autoriza\'e7\'f5es    |\par
+| Supervisor | Gest\'e3o da pr\'f3pria mesa                      |\par
+| Vendedor   | Acompanhamento pr\'f3prio + desempenho da mesa |\par
+\par
+---\par
+\par
+# 4. SuperAdmin\par
+\par
+O **SuperAdmin** ser\'e1 o administrador m\'e1ximo da plataforma.\par
+\par
+### Permiss\'f5es\par
+\par
+* Criar Gerentes.\par
+* Criar Supervisores.\par
+* Criar vendedores.\par
+* Criar e editar mesas.\par
+* Transferir vendedores entre mesas.\par
+* Ativar/desativar usu\'e1rios.\par
+* Configurar indicadores.\par
+* Configurar regras de c\'e1lculo.\par
+* Configurar per\'edodo de metas.\par
+* Visualizar todos os dashboards.\par
+* Visualizar todas as mesas.\par
+* Visualizar todos os vendedores.\par
+* Importar dados.\par
+* Corrigir dados.\par
+* Gerenciar permiss\'f5es.\par
+* Gerenciar par\'e2metros do sistema.\par
+* Consultar logs.\par
+* Consultar hist\'f3rico de altera\'e7\'f5es.\par
+* Gerenciar mensagens.\par
+* Bloquear usu\'e1rios.\par
+* Redefinir acesso.\par
+\par
+---\par
+\par
+# 5. Gerente\par
+\par
+O Gerente ter\'e1 vis\'e3o global da opera\'e7\'e3o.\par
+\par
+### Dashboard\par
+\par
+O Gerente poder\'e1 visualizar:\par
+\par
+* Resultado geral da RV Digital.\par
+* Resultado das 4 mesas.\par
+* Resultado por supervisor.\par
+* Resultado por vendedor.\par
+* Meta total.\par
+* Realizado total.\par
+* Diferen\'e7a.\par
+* Percentual de atingimento.\par
+* Meta di\'e1ria.\par
+* Proje\'e7\'e3o de fechamento.\par
+* Ranking de vendedores.\par
+* Ranking de mesas.\par
+* Indicadores abaixo da meta.\par
+* Indicadores acima da meta.\par
+* Evolu\'e7\'e3o di\'e1ria.\par
+* Evolu\'e7\'e3o mensal.\par
+\par
+### Permiss\'f5es especiais\par
+\par
+O Gerente poder\'e1:\par
+\par
+* Importar planilhas Excel.\par
+* Validar importa\'e7\'f5es.\par
+* Corrigir dados importados.\par
+* Editar metas quando necess\'e1rio.\par
+* Autorizar altera\'e7\'e3o de metas ap\'f3s o dia 10.\par
+* Liberar temporariamente uma meta para edi\'e7\'e3o.\par
+* Consultar hist\'f3rico de altera\'e7\'f5es.\par
+* Gerenciar usu\'e1rios da opera\'e7\'e3o.\par
+* Enviar mensagens.\par
+* Criar comunicados para as mesas.\par
+\par
+---\par
+\par
+# 6. Supervisor\par
+\par
+Cada Supervisor ficar\'e1 vinculado a uma mesa.\par
+\par
+Exemplo:\par
+\par
+```text\par
+Supervisor: Jo\'e3o\par
+Mesa: Mesa 01\par
+Vendedores: 10+\par
+```\par
+\par
+### O Supervisor poder\'e1 visualizar\par
+\par
+* Dashboard da pr\'f3pria mesa.\par
+* Meta da mesa.\par
+* Realizado da mesa.\par
+* Diferen\'e7a.\par
+* Percentual de atingimento.\par
+* Meta di\'e1ria.\par
+* Proje\'e7\'e3o de fechamento.\par
+* Ranking dos vendedores.\par
+* Evolu\'e7\'e3o di\'e1ria.\par
+* Indicadores individuais.\par
+* Vendedores abaixo da meta.\par
+* Vendedores pr\'f3ximos de atingir a meta.\par
+\par
+### Edi\'e7\'e3o das metas\par
+\par
+O Supervisor poder\'e1 editar as metas **at\'e9 o dia 10 de cada m\'eas**.\par
+\par
+Exemplo:\par
+\par
+```text\par
+01/08 \f3\u8594?\f0  Pode editar\par
+05/08 \f3\u8594?\f0  Pode editar\par
+10/08 \f3\u8594?\f0  Pode editar\par
+11/08 \f3\u8594?\f0  Bloqueado\par
+```\par
+\par
+Ap\'f3s o dia 10:\par
+\par
+```text\par
+EDI\'c7\'c3O BLOQUEADA\par
+```\par
+\par
+Caso seja necess\'e1ria uma altera\'e7\'e3o:\par
+\par
+```text\par
+Supervisor\par
+   \f3\u8595?\f0\par
+Solicita altera\'e7\'e3o\par
+   \f3\u8595?\f0\par
+Gerente\par
+   \f3\u8595?\f0\par
+Autoriza\par
+   \f3\u8595?\f0\par
+Sistema libera edi\'e7\'e3o\par
+   \f3\u8595?\f0\par
+Supervisor altera\par
+   \f3\u8595?\f0\par
+Sistema registra auditoria\par
+   \f3\u8595?\f0\par
+Edi\'e7\'e3o novamente bloqueada\par
+```\par
+\par
+Toda altera\'e7\'e3o dever\'e1 registrar:\par
+\par
+* Usu\'e1rio.\par
+* Data.\par
+* Hora.\par
+* Meta anterior.\par
+* Nova meta.\par
+* Indicador alterado.\par
+* Motivo.\par
+* Autorizador.\par
+* IP/sess\'e3o, quando dispon\'edvel.\par
+\par
+---\par
+\par
+# 7. Vendedor\par
+\par
+O vendedor ter\'e1 uma interface simples e objetiva.\par
+\par
+Ele dever\'e1 enxergar principalmente:\par
+\par
+### Minha Meta\par
+\par
+```text\par
+META\par
+10.000\par
+\par
+REALIZADO\par
+7.500\par
+\par
+DIFEREN\'c7A\par
+2.500\par
+\par
+ATINGIMENTO\par
+75%\par
+\par
+META/DIA\par
+125\par
+```\par
+\par
+Al\'e9m disso:\par
+\par
+* Evolu\'e7\'e3o di\'e1ria.\par
+* Evolu\'e7\'e3o mensal.\par
+* Proje\'e7\'e3o de fechamento.\par
+* Indicadores individuais.\par
+* Desempenho da sua mesa.\par
+* Ranking da mesa.\par
+* Comunicados.\par
+* Mensagens.\par
+* Hist\'f3rico de desempenho.\par
+\par
+O vendedor **n\'e3o poder\'e1 alterar sua pr\'f3pria meta**.\par
+\par
+---\par
+\par
+# 8. Indicadores de desempenho\par
+\par
+O sistema dever\'e1 trabalhar inicialmente com os seguintes indicadores:\par
+\par
+### Volume de Chips\par
+\par
+* Vivo\par
+* Claro\par
+* TIM\par
+\par
+### Outros indicadores\par
+\par
+* Cadastro\par
+* Churn\par
+* Inadimpl\'eancia\par
+* Centuri\'e3o\par
+* Serid\'f3\par
+* PDVs Consignados\par
+* Performance de Visita\par
+\par
+A estrutura dever\'e1 ser criada de forma flex\'edvel para permitir a inclus\'e3o futura de novos indicadores sem necessidade de reconstruir o sistema.\par
+\par
+---\par
+\par
+# 9. Tipos de indicadores\par
+\par
+Cada indicador dever\'e1 possuir uma configura\'e7\'e3o.\par
+\par
+Exemplo:\par
+\par
+```text\par
+Indicador:\par
+Volume Vivo\par
+\par
+Tipo:\par
+Quantidade\par
+\par
+Objetivo:\par
+Quanto maior, melhor\par
+\par
+Meta:\par
+500\par
+\par
+Realizado:\par
+420\par
+```\par
+\par
+J\'e1 indicadores como Churn ou Inadimpl\'eancia podem possuir l\'f3gica diferente:\par
+\par
+```text\par
+Indicador:\par
+Churn\par
+\par
+Tipo:\par
+Percentual\par
+\par
+Objetivo:\par
+Quanto menor, melhor\par
+```\par
+\par
+Por isso, o sistema dever\'e1 possuir uma configura\'e7\'e3o:\par
+\par
+```text\par
+direction:\par
+HIGHER_IS_BETTER\par
+LOWER_IS_BETTER\par
+```\par
+\par
+Isso permitir\'e1 que os c\'e1lculos sejam realizados corretamente.\par
+\par
+---\par
+\par
+# 10. C\'e1lculo de Meta\par
+\par
+Para cada indicador dever\'e3o existir:\par
+\par
+```text\par
+Meta\par
+Realizado\par
+Diferen\'e7a\par
+Percentual de atingimento\par
+Meta di\'e1ria\par
+Realizado di\'e1rio\par
+Proje\'e7\'e3o\par
+```\par
+\par
+### Diferen\'e7a\par
+\par
+Para indicadores onde maior \'e9 melhor:\par
+\par
+```text\par
+Diferen\'e7a = Meta - Realizado\par
+```\par
+\par
+Exemplo:\par
+\par
+```text\par
+Meta = 1.000\par
+Realizado = 750\par
+\par
+Diferen\'e7a = 250\par
+```\par
+\par
+### Percentual de atingimento\par
+\par
+```text\par
+Atingimento = Realizado / Meta \'d7 100\par
+```\par
+\par
+Exemplo:\par
+\par
+```text\par
+750 / 1.000 \'d7 100\par
+= 75%\par
+```\par
+\par
+---\par
+\par
+# 11. Meta di\'e1ria\par
+\par
+O sistema dever\'e1 mostrar automaticamente quanto ainda precisa ser realizado por dia.\par
+\par
+Exemplo:\par
+\par
+```text\par
+Meta mensal: 1.000\par
+Realizado: 700\par
+Restante: 300\par
+Dias restantes: 6\par
+\par
+Meta necess\'e1ria por dia:\par
+300 \'f7 6 = 50\par
+```\par
+\par
+O dashboard apresentar\'e1:\par
+\par
+> **Voc\'ea precisa realizar 50 por dia para atingir sua meta.**\par
+\par
+### Configura\'e7\'e3o de dias\par
+\par
+O sistema dever\'e1 permitir escolher entre:\par
+\par
+* Dias corridos.\par
+* Dias \'fateis.\par
+* Dias comerciais configurados.\par
+\par
+Recomenda-se utilizar **dias \'fateis/comerciais**, pois representa melhor a opera\'e7\'e3o comercial.\par
+\par
+---\par
+\par
+# 12. Proje\'e7\'e3o de fechamento\par
+\par
+Al\'e9m da Meta/Dia, o sistema dever\'e1 calcular uma proje\'e7\'e3o.\par
+\par
+Exemplo:\par
+\par
+```text\par
+Meta: 10.000\par
+Realizado: 7.000\par
+Dias trabalhados: 20\par
+Dias restantes: 5\par
+```\par
+\par
+M\'e9dia atual:\par
+\par
+```text\par
+7.000 \'f7 20 = 350/dia\par
+```\par
+\par
+Proje\'e7\'e3o:\par
+\par
+```text\par
+7.000 + (350 \'d7 5)\par
+= 8.750\par
+```\par
+\par
+Dashboard:\par
+\par
+```text\par
+META              R$ 10.000\par
+REALIZADO         R$ 7.000\par
+PROJE\'c7\'c3O          R$ 8.750\par
+DIFEREN\'c7A         -R$ 1.250\par
+```\par
+\par
+Isso permitir\'e1 ao supervisor identificar rapidamente quem est\'e1 em risco de n\'e3o atingir a meta.\par
+\par
+---\par
+\par
+# 13. Status visual das metas\par
+\par
+Os indicadores dever\'e3o possuir estados visuais.\par
+\par
+### Excelente\par
+\par
+```text\par
+\f3\u8805?\f0  100%\par
+```\par
+\par
+### Em andamento\par
+\par
+```text\par
+80% \f1\endash  99,99%\par
+```\par
+\par
+### Aten\f0\'e7\'e3o\par
+\par
+```text\par
+60% \f1\endash  79,99%\par
+```\par
+\par
+### Cr\f0\'edtico\par
+\par
+```text\par
+< 60%\par
+```\par
+\par
+Esses limites dever\'e3o ser configur\'e1veis pelo SuperAdmin.\par
+\par
+---\par
+\par
+# 14. Dashboard principal\par
+\par
+O dashboard dever\'e1 ser visualmente impactante.\par
+\par
+### Cabe\'e7alho\par
+\par
+```text\par
+RV DIGITAL                         \f4\u-10179?\u-8940?\f0   \f4\u-10179?\u-9116?\f0  Cristiano\par
+-----------------------------------------------------\par
+Dashboard | Metas | Mesas | Vendedores | Mensagens\par
+```\par
+\par
+### Cards principais\par
+\par
+```text\par
+\f2\u9484?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9488?\f0\par
+\f2\u9474?\f0  META TOTAL      \f2\u9474?\f0\par
+\f2\u9474?\f0  R$ 250.000      \f2\u9474?\f0\par
+\f2\u9492?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9496?\f0\par
+\par
+\f2\u9484?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9488?\f0\par
+\f2\u9474?\f0  REALIZADO       \f2\u9474?\f0\par
+\f2\u9474?\f0  R$ 198.500      \f2\u9474?\f0\par
+\f2\u9492?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9496?\f0\par
+\par
+\f2\u9484?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9488?\f0\par
+\f2\u9474?\f0  ATINGIMENTO     \f2\u9474?\f0\par
+\f2\u9474?\f0  79,4%           \f2\u9474?\f0\par
+\f2\u9492?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9496?\f0\par
+\par
+\f2\u9484?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9488?\f0\par
+\f2\u9474?\f0  META/DIA        \f2\u9474?\f0\par
+\f2\u9474?\f0  R$ 10.500       \f2\u9474?\f0\par
+\f2\u9492?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9496?\f0\par
+```\par
+\par
+---\par
+\par
+# 15. Dashboard das quatro mesas\par
+\par
+O Gerente dever\'e1 visualizar as quatro mesas simultaneamente.\par
+\par
+```text\par
+MESA 01\par
+Meta       50.000\par
+Realizado  44.500\par
+Ating.     89%\par
+\par
+MESA 02\par
+Meta       55.000\par
+Realizado  51.000\par
+Ating.     92%\par
+\par
+MESA 03\par
+Meta       48.000\par
+Realizado  38.500\par
+Ating.     80%\par
+\par
+MESA 04\par
+Meta       52.000\par
+Realizado  42.000\par
+Ating.     81%\par
+```\par
+\par
+Cada card poder\'e1 ser clicado para abrir o dashboard detalhado da mesa.\par
+\par
+---\par
+\par
+# 16. Dashboard do Supervisor\par
+\par
+O Supervisor dever\'e1 visualizar:\par
+\par
+### Resumo\par
+\par
+```text\par
+Minha Mesa\par
+\par
+Meta\par
+Realizado\par
+Diferen\'e7a\par
+Atingimento\par
+Meta/Dia\par
+Proje\'e7\'e3o\par
+```\par
+\par
+### Ranking\par
+\par
+| Posi\'e7\'e3o | Vendedor   | Atingimento |\par
+| ------- | ---------- | ----------: |\par
+| 1       | Vendedor A |        108% |\par
+| 2       | Vendedor B |         97% |\par
+| 3       | Vendedor C |         91% |\par
+| 4       | Vendedor D |         83% |\par
+\par
+### Alertas\par
+\par
+Exemplos:\par
+\par
+```text\par
+\f2\u9888?\f0  3 vendedores abaixo da meta di\'e1ria\par
+\par
+\f2\u9888?\f0  2 vendedores com proje\'e7\'e3o abaixo da meta\par
+\par
+\f2\u10003?\f0  4 vendedores acima da proje\'e7\'e3o\par
+\par
+\f2\u10003?\f0  2 vendedores j\'e1 atingiram a meta\par
+```\par
+\par
+---\par
+\par
+# 17. Dashboard do vendedor\par
+\par
+O vendedor dever\'e1 ter uma experi\'eancia mais simples.\par
+\par
+### Tela inicial\par
+\par
+```text\par
+Ol\'e1, Jo\'e3o!\par
+\par
+Seu desempenho em Agosto\par
+\par
+META\par
+1.000\par
+\par
+REALIZADO\par
+720\par
+\par
+FALTA\par
+280\par
+\par
+ATINGIMENTO\par
+72%\par
+\par
+META NECESS\'c1RIA/DIA\par
+56\par
+```\par
+\par
+### Indicadores\par
+\par
+```text\par
+VIVO\par
+\f2\u9608?\u9608?\u9608?\u9608?\u9608?\u9608?\u9608?\u9608?\u9608?\u9608?\u9608?\u9608?\u9617?\u9617?\u9617?\f0  80%\par
+\par
+CLARO\par
+\f2\u9608?\u9608?\u9608?\u9608?\u9608?\u9608?\u9608?\u9608?\u9608?\u9608?\u9617?\u9617?\u9617?\u9617?\u9617?\f0  68%\par
+\par
+TIM\par
+\f2\u9608?\u9608?\u9608?\u9608?\u9608?\u9608?\u9608?\u9608?\u9608?\u9608?\u9608?\u9608?\u9608?\u9617?\u9617?\f0  86%\par
+\par
+CADASTROS\par
+\f2\u9608?\u9608?\u9608?\u9608?\u9608?\u9608?\u9608?\u9608?\u9608?\u9608?\u9608?\u9617?\u9617?\u9617?\u9617?\f0  74%\par
+```\par
+\par
+---\par
+\par
+# 18. Importa\'e7\'e3o de Excel\par
+\par
+A importa\'e7\'e3o ser\'e1 um dos m\'f3dulos mais importantes.\par
+\par
+O sistema dever\'e1 aceitar:\par
+\par
+```text\par
+.xlsx\par
+.xls\par
+.csv\par
+```\par
+\par
+O Excel dever\'e1 ser processado automaticamente.\par
+\par
+### Regra principal\par
+\par
+**O t\'edtulo de cada coluna ser\'e1 utilizado como vari\'e1vel do sistema.**\par
+\par
+Exemplo de planilha:\par
+\par
+| Vendedor | Mesa    | Vivo | Claro | TIM | Cadastro | Churn |\par
+| -------- | ------- | ---: | ----: | --: | -------: | ----: |\par
+| Jo\'e3o     | Mesa 01 |  120 |    90 |  70 |       40 |    2% |\par
+| Maria    | Mesa 01 |  150 |    80 |  90 |       55 |    1% |\par
+\par
+O sistema reconhecer\'e1:\par
+\par
+```text\par
+Vendedor\par
+Mesa\par
+Vivo\par
+Claro\par
+TIM\par
+Cadastro\par
+Churn\par
+```\par
+\par
+e far\'e1 o tratamento para os campos correspondentes.\par
+\par
+---\par
+\par
+# 19. Motor de tratamento do Excel\par
+\par
+A importa\'e7\'e3o dever\'e1 possuir uma etapa de pr\'e9-visualiza\'e7\'e3o.\par
+\par
+Fluxo:\par
+\par
+```text\par
+Selecionar Excel\par
+       \f3\u8595?\f0\par
+Upload\par
+       \f3\u8595?\f0\par
+Leitura das colunas\par
+       \f3\u8595?\f0\par
+Mapeamento autom\'e1tico\par
+       \f3\u8595?\f0\par
+Valida\'e7\'e3o\par
+       \f3\u8595?\f0\par
+Pr\'e9-visualiza\'e7\'e3o\par
+       \f3\u8595?\f0\par
+Corre\'e7\'e3o de inconsist\'eancias\par
+       \f3\u8595?\f0\par
+Confirmar importa\'e7\'e3o\par
+       \f3\u8595?\f0\par
+Processamento\par
+       \f3\u8595?\f0\par
+Dashboard atualizado\par
+```\par
+\par
+### Valida\'e7\'f5es\par
+\par
+O sistema dever\'e1 verificar:\par
+\par
+* Colunas obrigat\'f3rias.\par
+* Colunas desconhecidas.\par
+* Vendedores inexistentes.\par
+* Mesas inexistentes.\par
+* Valores vazios.\par
+* Valores negativos.\par
+* Percentuais inv\'e1lidos.\par
+* Duplicidades.\par
+* Datas inv\'e1lidas.\par
+* Formatos incompat\'edveis.\par
+* Metas duplicadas.\par
+* Registros repetidos.\par
+\par
+---\par
+\par
+# 20. Mapeamento de colunas\par
+\par
+Dever\'e1 existir uma tela:\par
+\par
+## Mapeamento da Importa\'e7\'e3o\par
+\par
+```text\par
+Coluna Excel             Vari\'e1vel do sistema\par
+\par
+Vendedor             \f3\u8594?\f0    vendedor\par
+Mesa Comercial       \f3\u8594?\f0    mesa\par
+VIVO                 \f3\u8594?\f0    chip_vivo\par
+CLARO                \f3\u8594?\f0    chip_claro\par
+TIM                  \f3\u8594?\f0    chip_tim\par
+CADASTRO             \f3\u8594?\f0    cadastro\par
+CHURN                \f3\u8594?\f0    churn\par
+INADIMPL\'caNCIA        \f3\u8594?\f0    inadimplencia\par
+CENTURI\'c3O             \f3\u8594?\f0    centuriao\par
+SERID\'d3                \f3\u8594?\f0    serido\par
+PDVs CONSIGNADOS     \f3\u8594?\f0    pdvs_consignados\par
+VISITAS               \f3\u8594?\f0    performance_visita\par
+```\par
+\par
+O administrador poder\'e1 corrigir o mapeamento antes de confirmar a importa\'e7\'e3o.\par
+\par
+---\par
+\par
+# 21. Hist\'f3rico de importa\'e7\'f5es\par
+\par
+O sistema dever\'e1 manter um hist\'f3rico.\par
+\par
+```text\par
+Importa\'e7\'e3o #00045\par
+\par
+Arquivo:\par
+metas_agosto_2026.xlsx\par
+\par
+Usu\'e1rio:\par
+Gerente\par
+\par
+Data:\par
+01/08/2026 08:32\par
+\par
+Registros:\par
+42\par
+\par
+Sucesso:\par
+40\par
+\par
+Com erro:\par
+2\par
+\par
+Status:\par
+Processada\par
+```\par
+\par
+O Gerente poder\'e1 consultar o hist\'f3rico.\par
+\par
+---\par
+\par
+# 22. Tratamento de duplicidades\par
+\par
+O sistema dever\'e1 impedir que uma mesma informa\'e7\'e3o seja importada duas vezes sem autoriza\'e7\'e3o.\par
+\par
+Uma combina\'e7\'e3o recomendada para identifica\'e7\'e3o:\par
+\par
+```text\par
+Per\'edodo\par
++\par
+Vendedor\par
++\par
+Indicador\par
+```\par
+\par
+Caso o registro j\'e1 exista:\par
+\par
+```text\par
+Registro encontrado.\par
+\par
+[Ignorar]\par
+[Atualizar]\par
+[Cancelar]\par
+```\par
+\par
+---\par
+\par
+# 23. Controle de fechamento mensal\par
+\par
+Cada per\'edodo dever\'e1 ser tratado separadamente.\par
+\par
+Exemplo:\par
+\par
+```text\par
+Agosto/2026\par
+Setembro/2026\par
+Outubro/2026\par
+```\par
+\par
+Ao iniciar um novo m\'eas:\par
+\par
+```text\par
+Criar per\'edodo\par
+\f3\u8595?\f0\par
+Importar metas\par
+\f3\u8595?\f0\par
+Validar\par
+\f3\u8595?\f0\par
+Publicar metas\par
+\f3\u8595?\f0\par
+Iniciar acompanhamento\par
+```\par
+\par
+Os meses anteriores permanecer\'e3o armazenados para an\'e1lise hist\'f3rica.\par
+\par
+---\par
+\par
+# 24. Compara\'e7\'e3o mensal\par
+\par
+O Gerente poder\'e1 comparar per\'edodos.\par
+\par
+Exemplo:\par
+\par
+```text\par
+                    JULHO       AGOSTO\par
+\par
+VIVO                82%         91%\par
+CLARO               78%         88%\par
+TIM                 85%         94%\par
+CADASTRO            75%         89%\par
+CHURN               4%          3%\par
+INADIMPL\'caNCIA       5%          4%\par
+```\par
+\par
+Tamb\'e9m ser\'e1 poss\'edvel visualizar evolu\'e7\'e3o por:\par
+\par
+* Vendedor.\par
+* Supervisor.\par
+* Mesa.\par
+* Indicador.\par
+* M\'eas.\par
+\par
+---\par
+\par
+# 25. Ranking\par
+\par
+O sistema dever\'e1 possuir ranking.\par
+\par
+### Ranking geral\par
+\par
+```text\par
+\f4\u-10180?\u-8250?\f0  TOP 10 VENDEDORES\par
+\par
+01 \f1\emdash  Jo\f0\'e3o       112%\par
+02 \f1\emdash  Maria      108%\par
+03 \emdash  Pedro      104%\par
+04 \emdash  Carlos      99%\par
+05 \emdash  Ana         97%\par
+```\par
+\par
+### Ranking por mesa\par
+\par
+```text\par
+Mesa 01\par
+Mesa 02\par
+Mesa 03\par
+Mesa 04\par
+```\par
+\par
+O ranking dever\f0\'e1 respeitar as permiss\'f5es do usu\'e1rio.\par
+\par
+O vendedor, por exemplo, poder\'e1 visualizar o ranking da pr\'f3pria mesa, mas n\'e3o necessariamente dados detalhados de vendedores de outras mesas.\par
+\par
+---\par
+\par
+# 26. Sistema de mensagens\par
+\par
+O sistema ter\'e1 comunica\'e7\'e3o interna.\par
+\par
+### Mensagem individual\par
+\par
+```text\par
+Supervisor \f3\u8594?\f0  Jo\'e3o\par
+\par
+"Jo\'e3o, precisamos melhorar o volume de Vivo\par
+nos pr\'f3ximos dias. Sua meta di\'e1ria agora \'e9 45."\par
+```\par
+\par
+### Mensagem para grupo\par
+\par
+O Supervisor poder\'e1 enviar para:\par
+\par
+```text\par
+Minha Mesa\par
+```\par
+\par
+O Gerente poder\'e1 enviar para:\par
+\par
+```text\par
+Todas as mesas\par
+Mesa 01\par
+Mesa 02\par
+Mesa 03\par
+Mesa 04\par
+Supervisores\par
+Vendedores\par
+```\par
+\par
+---\par
+\par
+# 27. Chat\par
+\par
+A interface poder\'e1 funcionar semelhante a um aplicativo moderno de mensagens.\par
+\par
+```text\par
+\f2\u9484?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9488?\f0\par
+\f2\u9474?\f0  Jo\'e3o                               \f2\u9474?\f0\par
+\f2\u9500?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9508?\f0\par
+\f2\u9474?\f0                                      \f2\u9474?\f0\par
+\f2\u9474?\f0  Supervisor                          \f2\u9474?\f0\par
+\f2\u9474?\f0  Precisamos acelerar o resultado.    \f2\u9474?\f0\par
+\f2\u9474?\f0                                      \f2\u9474?\f0\par
+\f2\u9474?\f0  Jo\'e3o                                \f2\u9474?\f0\par
+\f2\u9474?\f0  Pode deixar! Vou buscar a meta.     \f2\u9474?\f0\par
+\f2\u9474?\f0                                      \f2\u9474?\f0\par
+\f2\u9500?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9508?\f0\par
+\f2\u9474?\f0  Digite sua mensagem...        \f2\u10148?\f0      \f2\u9474?\f0\par
+\f2\u9492?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9472?\u9496?\f0\par
+```\par
+\par
+Recursos:\par
+\par
+* Mensagem individual.\par
+* Mensagem em grupo.\par
+* Notifica\'e7\'e3o.\par
+* Mensagens n\'e3o lidas.\par
+* Data/hora.\par
+* Hist\'f3rico.\par
+* Indicador de leitura.\par
+* Busca de mensagens.\par
+\par
+---\par
+\par
+# 28. Notifica\'e7\'f5es\par
+\par
+O sistema dever\'e1 possuir notifica\'e7\'f5es internas.\par
+\par
+Exemplos:\par
+\par
+```text\par
+\f4\u-10179?\u-8940?\f0  Sua meta foi atualizada.\par
+\par
+\f4\u-10179?\u-8940?\f0  Voc\'ea est\'e1 abaixo da meta di\'e1ria.\par
+\par
+\f4\u-10179?\u-8940?\f0  Nova mensagem do Supervisor.\par
+\par
+\f4\u-10179?\u-8940?\f0  Sua mesa atingiu 90% da meta.\par
+\par
+\f4\u-10179?\u-8940?\f0  O Gerente publicou um novo comunicado.\par
+```\par
+\par
+---\par
+\par
+# 29. Banco de dados\par
+\par
+Estrutura inicial recomendada:\par
+\par
+### users\par
+\par
+```text\par
+id\par
+name\par
+email\par
+password_hash\par
+role\par
+status\par
+mesa_id\par
+created_at\par
+updated_at\par
+```\par
+\par
+### teams\par
+\par
+```text\par
+id\par
+name\par
+supervisor_id\par
+status\par
+created_at\par
+updated_at\par
+```\par
+\par
+### indicators\par
+\par
+```text\par
+id\par
+name\par
+code\par
+type\par
+direction\par
+unit\par
+active\par
+```\par
+\par
+### goals\par
+\par
+```text\par
+id\par
+user_id\par
+indicator_id\par
+period_id\par
+target_value\par
+created_by\par
+created_at\par
+updated_at\par
+```\par
+\par
+### results\par
+\par
+```text\par
+id\par
+user_id\par
+indicator_id\par
+period_id\par
+result_value\par
+reference_date\par
+created_at\par
+```\par
+\par
+### periods\par
+\par
+```text\par
+id\par
+month\par
+year\par
+start_date\par
+end_date\par
+status\par
+```\par
+\par
+### goal_change_requests\par
+\par
+```text\par
+id\par
+goal_id\par
+requested_by\par
+approved_by\par
+old_value\par
+new_value\par
+reason\par
+status\par
+requested_at\par
+approved_at\par
+```\par
+\par
+### imports\par
+\par
+```text\par
+id\par
+file_name\par
+uploaded_by\par
+period_id\par
+status\par
+total_rows\par
+success_rows\par
+error_rows\par
+created_at\par
+```\par
+\par
+### messages\par
+\par
+```text\par
+id\par
+sender_id\par
+conversation_id\par
+message\par
+read_at\par
+created_at\par
+```\par
+\par
+### audit_logs\par
+\par
+```text\par
+id\par
+user_id\par
+action\par
+entity\par
+entity_id\par
+old_data\par
+new_data\par
+ip_address\par
+created_at\par
+```\par
+\par
+---\par
+\par
+# 30. Seguran\'e7a\par
+\par
+O sistema dever\'e1 possuir:\par
+\par
+* Login seguro.\par
+* Senhas criptografadas.\par
+* Controle de sess\'e3o.\par
+* Controle de permiss\'f5es.\par
+* RBAC \f1\emdash  Role Based Access Control.\par
+* Prote\f0\'e7\'e3o contra acesso indevido.\par
+* Valida\'e7\'e3o de dados.\par
+* Logs de auditoria.\par
+* Controle de altera\'e7\'f5es.\par
+* Expira\'e7\'e3o de sess\'e3o.\par
+* Recupera\'e7\'e3o de senha.\par
+* Bloqueio de usu\'e1rios.\par
+* Prote\'e7\'e3o de rotas da API.\par
+\par
+Nenhuma regra de permiss\'e3o dever\'e1 ficar apenas no frontend. Todas as permiss\'f5es dever\'e3o ser validadas tamb\'e9m no backend.\par
+\par
+---\par
+\par
+# 31. Regra de bloqueio das metas\par
+\par
+A regra dever\'e1 ser implementada no backend.\par
+\par
+Exemplo:\par
+\par
+```text\par
+Se dia_atual <= 10\par
+    Supervisor pode editar\par
+Sen\'e3o\par
+    Supervisor n\'e3o pode editar\par
+```\par
+\par
+Caso exista autoriza\'e7\'e3o:\par
+\par
+```text\par
+Se existe autoriza\'e7\'e3o v\'e1lida\par
+    permitir edi\'e7\'e3o\par
+Sen\'e3o\par
+    bloquear\par
+```\par
+\par
+O frontend dever\'e1 apenas refletir o estado.\par
+\par
+Exemplo:\par
+\par
+```text\par
+\f4\u-10179?\u-8942?\f0  Edi\'e7\'e3o de metas encerrada\par
+\par
+As metas est\'e3o bloqueadas ap\'f3s o dia 10.\par
+\par
+[Solicitar autoriza\'e7\'e3o ao Gerente]\par
+```\par
+\par
+---\par
+\par
+# 32. Autoriza\'e7\'e3o excepcional\par
+\par
+Quando o Supervisor solicitar altera\'e7\'e3o ap\'f3s o prazo:\par
+\par
+```text\par
+SOLICITA\'c7\'c3O DE ALTERA\'c7\'c3O\par
+\par
+Supervisor:\par
+Jo\'e3o\par
+\par
+Mesa:\par
+Mesa 02\par
+\par
+Indicador:\par
+Volume Vivo\par
+\par
+Meta atual:\par
+500\par
+\par
+Nova meta:\par
+550\par
+\par
+Motivo:\par
+Altera\'e7\'e3o solicitada pela gest\'e3o comercial.\par
+\par
+[Enviar solicita\'e7\'e3o]\par
+```\par
+\par
+O Gerente receber\'e1:\par
+\par
+```text\par
+Nova solicita\'e7\'e3o de altera\'e7\'e3o\par
+\par
+Mesa 02\par
+Volume Vivo\par
+500 \f3\u8594?\f0  550\par
+\par
+[Autorizar]\par
+[Recusar]\par
+```\par
+\par
+---\par
+\par
+# 33. Auditoria\par
+\par
+Todas as opera\'e7\'f5es importantes dever\'e3o gerar logs.\par
+\par
+Exemplo:\par
+\par
+```text\par
+12/08/2026 09:15\par
+Gerente Carlos\par
+\par
+Alterou:\par
+Meta Vivo\par
+\par
+Vendedor:\par
+Jo\'e3o\par
+\par
+Anterior:\par
+500\par
+\par
+Novo:\par
+550\par
+\par
+Motivo:\par
+Ajuste comercial autorizado.\par
+```\par
+\par
+O SuperAdmin dever\'e1 conseguir pesquisar os logs por:\par
+\par
+* Usu\'e1rio.\par
+* Data.\par
+* Mesa.\par
+* Vendedor.\par
+* A\'e7\'e3o.\par
+* Indicador.\par
+\par
+---\par
+\par
+# 34. Layout e identidade visual\par
+\par
+A interface dever\'e1 utilizar como refer\'eancia a identidade visual apresentada da RV Digital.\par
+\par
+### Paleta sugerida\par
+\par
+```text\par
+Azul-marinho\par
+#172452\par
+\par
+Azul principal\par
+#2786E8\par
+\par
+Azul claro\par
+#EAF4FF\par
+\par
+Lil\'e1s\par
+#9294D8\par
+\par
+Branco\par
+#FFFFFF\par
+\par
+Cinza de fundo\par
+#F5F7FB\par
+```\par
+\par
+### Caracter\'edsticas\par
+\par
+* Design clean.\par
+* Cards arredondados.\par
+* Sombras suaves.\par
+* Tipografia moderna.\par
+* \'cdcones minimalistas.\par
+* Gr\'e1ficos profissionais.\par
+* Espa\'e7amento confort\'e1vel.\par
+* Barra lateral responsiva.\par
+* Header fixo.\par
+* Dashboard com informa\'e7\'f5es priorit\'e1rias.\par
+* Excelente visualiza\'e7\'e3o em celular.\par
+\par
+---\par
+\par
+# 35. Responsividade\par
+\par
+O sistema dever\'e1 funcionar perfeitamente em:\par
+\par
+```text\par
+Desktop\par
+Notebook\par
+Tablet\par
+Smartphone\par
+```\par
+\par
+### Desktop\par
+\par
+Sidebar completa:\par
+\par
+```text\par
+Dashboard\par
+Metas\par
+Mesas\par
+Vendedores\par
+Importa\'e7\'f5es\par
+Ranking\par
+Mensagens\par
+Relat\'f3rios\par
+Configura\'e7\'f5es\par
+```\par
+\par
+### Smartphone\par
+\par
+Sidebar transformada em menu:\par
+\par
+```text\par
+\f2\u9776?\f0\par
+```\par
+\par
+Os cards dever\'e3o se adaptar automaticamente:\par
+\par
+```text\par
+Desktop:\par
+4 cards lado a lado\par
+\par
+Tablet:\par
+2 cards\par
+\par
+Celular:\par
+1 card por linha\par
+```\par
+\par
+---\par
+\par
+# 36. Gr\'e1ficos\par
+\par
+O sistema dever\'e1 utilizar gr\'e1ficos modernos.\par
+\par
+### Gr\'e1ficos recomendados\par
+\par
+* Barras.\par
+* Linha.\par
+* Donut.\par
+* Gauge.\par
+* Evolu\'e7\'e3o di\'e1ria.\par
+* Compara\'e7\'e3o de mesas.\par
+* Compara\'e7\'e3o mensal.\par
+* Ranking.\par
+\par
+Exemplo:\par
+\par
+```text\par
+META x REALIZADO\par
+\par
+META       \f2\u9608?\u9608?\u9608?\u9608?\u9608?\u9608?\u9608?\u9608?\u9608?\u9608?\u9608?\u9608?\u9608?\u9608?\u9608?\u9608?\u9608?\u9608?\u9608?\u9608?\f0  100%\par
+REALIZADO  \f2\u9608?\u9608?\u9608?\u9608?\u9608?\u9608?\u9608?\u9608?\u9608?\u9608?\u9608?\u9608?\u9608?\u9608?\u9608?\f0        76%\par
+```\par
+\par
+---\par
+\par
+# 37. Filtros\par
+\par
+Todos os dashboards dever\'e3o possuir filtros.\par
+\par
+### Filtros gerais\par
+\par
+```text\par
+Per\'edodo\par
+M\'eas\par
+Mesa\par
+Supervisor\par
+Vendedor\par
+Indicador\par
+```\par
+\par
+Exemplo:\par
+\par
+```text\par
+Per\'edodo: Agosto/2026\par
+Mesa: Mesa 02\par
+Supervisor: Jo\'e3o\par
+Indicador: Vivo\par
+```\par
+\par
+---\par
+\par
+# 38. Relat\'f3rios\par
+\par
+O sistema dever\'e1 permitir gera\'e7\'e3o de relat\'f3rios.\par
+\par
+### Relat\'f3rio geral\par
+\par
+* Meta.\par
+* Realizado.\par
+* Diferen\'e7a.\par
+* Atingimento.\par
+* Meta/Dia.\par
+* Proje\'e7\'e3o.\par
+\par
+### Relat\'f3rio por mesa\par
+\par
+* Supervisor.\par
+* Vendedores.\par
+* Indicadores.\par
+* Ranking.\par
+\par
+### Relat\'f3rio individual\par
+\par
+* Hist\'f3rico do vendedor.\par
+* Evolu\'e7\'e3o mensal.\par
+* Indicadores.\par
+* Meta x Realizado.\par
+\par
+### Exporta\'e7\'e3o\par
+\par
+Recomenda-se permitir:\par
+\par
+```text\par
+Excel\par
+CSV\par
+PDF\par
+```\par
+\par
+---\par
+\par
+# 39. Arquitetura recomendada\par
+\par
+Para desenvolvimento moderno e f\'e1cil implanta\'e7\'e3o:\par
+\par
+### Frontend\par
+\par
+```text\par
+Next.js\par
+React\par
+TypeScript\par
+Tailwind CSS\par
+```\par
+\par
+### Componentes\par
+\par
+```text\par
+Shadcn/UI\par
+Lucide Icons\par
+```\par
+\par
+### Gr\'e1ficos\par
+\par
+```text\par
+Recharts\par
+```\par
+\par
+### Backend\par
+\par
+```text\par
+Next.js API\par
+ou\par
+NestJS\par
+```\par
+\par
+### Banco\par
+\par
+```text\par
+PostgreSQL\par
+```\par
+\par
+### ORM\par
+\par
+```text\par
+Prisma\par
+```\par
+\par
+### Autentica\'e7\'e3o\par
+\par
+```text\par
+Auth.js\par
+ou solu\'e7\'e3o JWT segura\par
+```\par
+\par
+### Excel\par
+\par
+```text\par
+SheetJS / XLSX\par
+```\par
+\par
+### Deploy\par
+\par
+```text\par
+GitHub\par
+Railway\par
+PostgreSQL Railway\par
+```\par
+\par
+Essa arquitetura permitir\'e1 manter o projeto organizado e preparado para crescimento.\par
+\par
+---\par
+\par
+# 40. Estrutura de menus\par
+\par
+## SuperAdmin\par
+\par
+```text\par
+Dashboard\par
+\f2\u9500?\u9472?\u9472?\f0  Vis\'e3o Geral\par
+\f2\u9500?\u9472?\u9472?\f0  Metas\par
+\f2\u9500?\u9472?\u9472?\f0  Mesas\par
+\f2\u9500?\u9472?\u9472?\f0  Supervisores\par
+\f2\u9500?\u9472?\u9472?\f0  Vendedores\par
+\f2\u9500?\u9472?\u9472?\f0  Indicadores\par
+\f2\u9500?\u9472?\u9472?\f0  Importa\'e7\'f5es\par
+\f2\u9500?\u9472?\u9472?\f0  Ranking\par
+\f2\u9500?\u9472?\u9472?\f0  Relat\'f3rios\par
+\f2\u9500?\u9472?\u9472?\f0  Mensagens\par
+\f2\u9500?\u9472?\u9472?\f0  Auditoria\par
+\f2\u9492?\u9472?\u9472?\f0  Configura\'e7\'f5es\par
+```\par
+\par
+## Gerente\par
+\par
+```text\par
+Dashboard\par
+\f2\u9500?\u9472?\u9472?\f0  Metas\par
+\f2\u9500?\u9472?\u9472?\f0  Mesas\par
+\f2\u9500?\u9472?\u9472?\f0  Supervisores\par
+\f2\u9500?\u9472?\u9472?\f0  Vendedores\par
+\f2\u9500?\u9472?\u9472?\f0  Importa\'e7\'f5es\par
+\f2\u9500?\u9472?\u9472?\f0  Ranking\par
+\f2\u9500?\u9472?\u9472?\f0  Relat\'f3rios\par
+\f2\u9500?\u9472?\u9472?\f0  Autoriza\'e7\'f5es\par
+\f2\u9492?\u9472?\u9472?\f0  Mensagens\par
+```\par
+\par
+## Supervisor\par
+\par
+```text\par
+Dashboard\par
+\f2\u9500?\u9472?\u9472?\f0  Minha Mesa\par
+\f2\u9500?\u9472?\u9472?\f0  Metas\par
+\f2\u9500?\u9472?\u9472?\f0  Vendedores\par
+\f2\u9500?\u9472?\u9472?\f0  Ranking\par
+\f2\u9500?\u9472?\u9472?\f0  Relat\'f3rios\par
+\f2\u9500?\u9472?\u9472?\f0  Mensagens\par
+\f2\u9492?\u9472?\u9472?\f0  Solicita\'e7\'f5es\par
+```\par
+\par
+## Vendedor\par
+\par
+```text\par
+Meu Dashboard\par
+\f2\u9500?\u9472?\u9472?\f0  Minhas Metas\par
+\f2\u9500?\u9472?\u9472?\f0  Meu Desempenho\par
+\f2\u9500?\u9472?\u9472?\f0  Minha Mesa\par
+\f2\u9500?\u9472?\u9472?\f0  Ranking\par
+\f2\u9492?\u9472?\u9472?\f0  Mensagens\par
+```\par
+\par
+---\par
+\par
+# 41. Dashboard inteligente\par
+\par
+Uma funcionalidade importante ser\'e1 criar um painel de **alertas autom\'e1ticos**.\par
+\par
+O sistema dever\'e1 identificar:\par
+\par
+```text\par
+\f4\u-10179?\u-8908?\f0  Meta em risco\par
+\f5\u-10179?\u-8224?\f0  Abaixo da meta di\'e1ria\par
+\f5\u-10179?\u-8223?\f0  Necessita acelera\'e7\'e3o\par
+\f5\u-10179?\u-8222?\f0  Dentro da proje\'e7\'e3o\par
+\f4\u-10179?\u-8907?\f0  Meta atingida\par
+```\par
+\par
+Exemplo:\par
+\par
+> **Aten\'e7\'e3o:** 4 vendedores da Mesa 03 precisam aumentar a m\'e9dia di\'e1ria para alcan\'e7ar a meta mensal.\par
+\par
+Outro exemplo:\par
+\par
+> **Excelente:** Mesa 01 est\'e1 projetando 106% de atingimento no fechamento do m\'eas.\par
+\par
+---\par
+\par
+# 42. Indicador "O que preciso fazer hoje?"\par
+\par
+Esse ser\'e1 um dos principais diferenciais do sistema.\par
+\par
+Para cada vendedor:\par
+\par
+```text\par
+META MENSAL\par
+1.000\par
+\par
+REALIZADO\par
+760\par
+\par
+FALTA\par
+240\par
+\par
+DIAS RESTANTES\par
+6\par
+\par
+PRECISO FAZER POR DIA\par
+40\par
+```\par
+\par
+Mensagem autom\'e1tica:\par
+\par
+> **Voc\'ea precisa realizar mais 40 unidades por dia para alcan\'e7ar sua meta.**\par
+\par
+Para o Supervisor:\par
+\par
+```text\par
+MESA 02\par
+\par
+Meta restante:\par
+3.200\par
+\par
+Dias restantes:\par
+6\par
+\par
+Necess\'e1rio por dia:\par
+533\par
+```\par
+\par
+Assim, o sistema transforma os n\'fameros em uma orienta\'e7\'e3o pr\'e1tica.\par
+\par
+---\par
+\par
+# 43. Vis\'e3o de performance por indicador\par
+\par
+Cada vendedor ter\'e1 uma matriz:\par
+\par
+| Indicador | Meta | Realizado | Diferen\'e7a | Atingimento | Meta/Dia |\par
+| --------- | ---: | --------: | --------: | ----------: | -------: |\par
+| Vivo      |  500 |       420 |        80 |         84% |       16 |\par
+| Claro     |  400 |       350 |        50 |       87,5% |       10 |\par
+| TIM       |  300 |       280 |        20 |       93,3% |        4 |\par
+| Cadastro  |  200 |       170 |        30 |         85% |        6 |\par
+| Churn     |   3% |      2,5% |         \f1\emdash  |      Dentro |        \emdash  |\par
+\par
+Isso permitir\f0\'e1 identificar rapidamente onde o vendedor precisa melhorar.\par
+\par
+---\par
+\par
+# 44. Banco preparado para crescimento\par
+\par
+Embora o projeto comece com:\par
+\par
+```text\par
+4 mesas\par
+10 vendedores por mesa\par
+\f3\u8776?\f0  40 vendedores\par
+```\par
+\par
+a arquitetura dever\'e1 suportar:\par
+\par
+```text\par
+10 mesas\par
+50 mesas\par
+500 vendedores\par
+1.000 vendedores\par
+```\par
+\par
+sem precisar alterar a estrutura principal do sistema.\par
+\par
+---\par
+\par
+# 45. Fluxo completo do sistema\par
+\par
+```text\par
+LOGIN\par
+  \f3\u8595?\f0\par
+Identifica\'e7\'e3o do perfil\par
+  \f3\u8595?\f0\par
+Dashboard correspondente\par
+  \f3\u8595?\f0\par
+Visualiza\'e7\'e3o das metas\par
+  \f3\u8595?\f0\par
+Importa\'e7\'e3o/atualiza\'e7\'e3o dos resultados\par
+  \f3\u8595?\f0\par
+Tratamento dos dados\par
+  \f3\u8595?\f0\par
+C\'e1lculo autom\'e1tico\par
+  \f3\u8595?\f0\par
+Meta x Realizado\par
+  \f3\u8595?\f0\par
+Diferen\'e7a\par
+  \f3\u8595?\f0\par
+Meta/Dia\par
+  \f3\u8595?\f0\par
+Proje\'e7\'e3o\par
+  \f3\u8595?\f0\par
+Alertas\par
+  \f3\u8595?\f0\par
+Acompanhamento\par
+  \f3\u8595?\f0\par
+Comunica\'e7\'e3o\par
+```\par
+\par
+---\par
+\par
+# 46. Fluxo mensal\par
+\par
+```text\par
+IN\'cdCIO DO M\'caS\par
+      \f3\u8595?\f0\par
+Criar per\'edodo\par
+      \f3\u8595?\f0\par
+Importar Excel\par
+      \f3\u8595?\f0\par
+Validar dados\par
+      \f3\u8595?\f0\par
+Definir metas\par
+      \f3\u8595?\f0\par
+Supervisores revisam\par
+      \f3\u8595?\f0\par
+At\'e9 dia 10\par
+      \f3\u8595?\f0\par
+Altera\'e7\'f5es permitidas\par
+      \f3\u8595?\f0\par
+Dia 11\par
+      \f3\u8595?\f0\par
+METAS BLOQUEADAS\par
+      \f3\u8595?\f0\par
+Acompanhamento di\'e1rio\par
+      \f3\u8595?\f0\par
+Proje\'e7\'e3o de fechamento\par
+      \f3\u8595?\f0\par
+Encerramento do m\'eas\par
+      \f3\u8595?\f0\par
+Hist\'f3rico\par
+      \f3\u8595?\f0\par
+Novo per\'edodo\par
+```\par
+\par
+---\par
+\par
+# 47. Requisitos de experi\'eancia do usu\'e1rio\par
+\par
+O sistema dever\'e1 priorizar:\par
+\par
+1. **Rapidez para encontrar informa\'e7\'f5es.**\par
+2. **Poucos cliques.**\par
+3. **Visualiza\'e7\'e3o clara da meta.**\par
+4. **Identifica\'e7\'e3o imediata de problemas.**\par
+5. **Boa experi\'eancia no celular.**\par
+6. **Gr\'e1ficos f\'e1ceis de interpretar.**\par
+7. **Comunica\'e7\'e3o r\'e1pida entre equipe e supervis\'e3o.**\par
+\par
+O vendedor dever\'e1 entrar no sistema e, em poucos segundos, saber:\par
+\par
+> **Quanto tenho de meta? Quanto j\'e1 fiz? Quanto falta? Quanto preciso fazer hoje?**\par
+\par
+O Supervisor dever\'e1 saber:\par
+\par
+> **Quem est\'e1 abaixo da meta e quanto precisa acelerar?**\par
+\par
+O Gerente dever\'e1 saber:\par
+\par
+> **Qual mesa est\'e1 performando melhor e onde est\'e1 o maior risco?**\par
+\par
+---\par
+\par
+# 48. Crit\'e9rios de aceite\par
+\par
+O projeto ser\'e1 considerado funcional quando:\par
+\par
+* [ ] SuperAdmin conseguir administrar toda a plataforma.\par
+* [ ] Gerente conseguir importar Excel.\par
+* [ ] Excel for validado antes da importa\'e7\'e3o.\par
+* [ ] Sistema reconhecer t\'edtulos das colunas.\par
+* [ ] Dados forem tratados automaticamente.\par
+* [ ] Existirem quatro mesas inicialmente.\par
+* [ ] Cada mesa aceitar 10 ou mais vendedores.\par
+* [ ] Vendedores forem vinculados \'e0s mesas.\par
+* [ ] Metas forem cadastradas por per\'edodo.\par
+* [ ] Realizados forem importados/processados.\par
+* [ ] Sistema calcular diferen\'e7a.\par
+* [ ] Sistema calcular percentual de atingimento.\par
+* [ ] Sistema calcular Meta/Dia.\par
+* [ ] Sistema calcular proje\'e7\'e3o.\par
+* [ ] Supervisor puder alterar metas at\'e9 o dia 10.\par
+* [ ] Sistema bloquear altera\'e7\'f5es ap\'f3s o dia 10.\par
+* [ ] Gerente puder autorizar exce\'e7\'f5es.\par
+* [ ] Altera\'e7\'f5es ficarem registradas em auditoria.\par
+* [ ] Vendedor visualize somente os dados permitidos.\par
+* [ ] Vendedor visualize desempenho da pr\'f3pria mesa.\par
+* [ ] Supervisor visualize sua mesa.\par
+* [ ] Gerente visualize todas as mesas.\par
+* [ ] Existir ranking.\par
+* [ ] Existirem gr\'e1ficos.\par
+* [ ] Existirem alertas.\par
+* [ ] Existir comunica\'e7\'e3o individual.\par
+* [ ] Existir comunica\'e7\'e3o em grupo.\par
+* [ ] Sistema seja responsivo.\par
+* [ ] Sistema funcione em desktop, tablet e celular.\par
+* [ ] Hist\'f3rico mensal seja preservado.\par
+* [ ] Relat\'f3rios possam ser exportados.\par
+* [ ] Permiss\'f5es sejam validadas no backend.\par
+* [ ] Auditoria registre altera\'e7\'f5es cr\'edticas.\par
+\par
+---\par
+\par
+# 49. Resultado esperado\par
+\par
+O resultado final dever\'e1 ser uma plataforma de gest\'e3o comercial que n\'e3o seja apenas um painel de n\'fameros, mas um **sistema de acompanhamento e direcionamento da equipe**.\par
+\par
+A informa\'e7\'e3o mais importante dever\'e1 estar sempre evidente:\par
+\par
+### META \f3\u8594?\f0  REALIZADO \f3\u8594?\f0  FALTA \f3\u8594?\f0  META/DIA \f3\u8594?\f0  PROJE\'c7\'c3O\par
+\par
+Com isso, cada n\'edvel da opera\'e7\'e3o ter\'e1 uma vis\'e3o adequada:\par
+\par
+```text\par
+SUPERADMIN\par
+Controle total\par
+\par
+        \f3\u8595?\f0\par
+\par
+GERENTE\par
+Vis\'e3o geral da opera\'e7\'e3o\par
+\par
+        \f3\u8595?\f0\par
+\par
+SUPERVISOR\par
+Gest\'e3o da mesa\par
+\par
+        \f3\u8595?\f0\par
+\par
+VENDEDOR\par
+Gest\'e3o da pr\'f3pria performance\par
+```\par
+\par
+O sistema dever\'e1 ter apar\'eancia profissional, moderna e alinhada \'e0 identidade visual da **RV Digital**, com foco em performance, simplicidade, velocidade de consulta e tomada de decis\'e3o baseada nos dados.\lang22\par
+}
+ 
