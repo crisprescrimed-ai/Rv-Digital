@@ -9,6 +9,7 @@
   "scripts": {
     "dev": "vite --host 0.0.0.0",
     "build": "vite build",
+    "audit:emojis": "node scripts/audit-emojis.cjs",
     "start": "node server.cjs",
     "start:railway": "npm run db:migrate && node server.cjs",
     "preview": "vite preview --host 0.0.0.0",
