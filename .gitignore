@@ -6,3 +6,7 @@ dist
 .env
 .env.*
 !.env.example
+/rv-settings-desktop.png
+/rv-settings-mobile-dialog.png
+/team-performance-desktop.png
+/team-performance-mobile-sellers.png

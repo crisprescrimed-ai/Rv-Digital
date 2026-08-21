@@ -22,13 +22,16 @@ Configure antes:
 ```env
 DATABASE_URL=postgresql://usuario:senha@localhost:5432/rv_digital
 JWT_SECRET=uma-chave-segura
+DATA_SOURCE_SECRET=uma-chave-independente-e-estavel
 ```
+
+Em produção, defina `DATA_SOURCE_SECRET` com um valor forte e diferente de `JWT_SECRET`. A troca dessa chave invalida a senha de fonte de dados já criptografada; nesse caso, informe a credencial novamente em Configurações.
 
 ## Publicar no Railway
 
 1. Envie este projeto para um repositório GitHub e conecte-o ao Railway.
 2. Adicione um PostgreSQL e referencie a variável `DATABASE_URL` no serviço web.
-3. Configure `JWT_SECRET`, `NODE_ENV=production` e, opcionalmente, `APP_URL`.
+3. Configure `JWT_SECRET`, `DATA_SOURCE_SECRET`, `NODE_ENV=production` e, opcionalmente, `APP_URL`.
 4. O Railway usa [railway.json](railway.json) para executar build, migração e start, além de validar `/api/health`.
 5. Na primeira publicação, execute `railway ssh -s rv-digital-web npm run db:seed` uma única vez. Defina `SEED_PASSWORD` antes do comando e remova a variável depois.
 
