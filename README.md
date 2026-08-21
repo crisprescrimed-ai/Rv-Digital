@@ -4,7 +4,7 @@ Plataforma comercial responsiva com autenticação por perfil, metas, resultados
 
 ## Ambiente publicado
 
-https://rv-digital-web-production.up.railway.app
+https://rvdigital.up.railway.app
 
 O ambiente usa HTTPS e pode ser acessado por computadores, tablets e celulares conectados à internet. Todos os dispositivos consultam as mesmas informações no PostgreSQL do Railway.
 
