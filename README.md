@@ -2,6 +2,12 @@
 
 Plataforma comercial responsiva com autenticação por perfil, metas, resultados, indicadores, importações, relatórios, comunicação, auditoria e ações de gestão.
 
+## Ambiente publicado
+
+https://rv-digital-web-production.up.railway.app
+
+O ambiente usa HTTPS e pode ser acessado por computadores, tablets e celulares conectados à internet. Todos os dispositivos consultam as mesmas informações no PostgreSQL do Railway.
+
 ## Executar localmente
 
 ```bash
@@ -24,7 +30,7 @@ JWT_SECRET=uma-chave-segura
 2. Adicione um PostgreSQL e referencie a variável `DATABASE_URL` no serviço web.
 3. Configure `JWT_SECRET`, `NODE_ENV=production` e, opcionalmente, `APP_URL`.
 4. O Railway usa [railway.json](railway.json) para executar build, migração e start, além de validar `/api/health`.
-5. Na primeira publicação, execute `railway run npm run db:seed` uma única vez. Defina `SEED_PASSWORD` antes do comando e remova a variável depois.
+5. Na primeira publicação, execute `railway ssh -s rv-digital-web npm run db:seed` uma única vez. Defina `SEED_PASSWORD` antes do comando e remova a variável depois.
 
 Nunca execute o seed novamente em produção sem intenção explícita: ele atualiza a senha das contas administrativas iniciais.
 
