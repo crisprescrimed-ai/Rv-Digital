@@ -12,8 +12,22 @@ const isEmoji = codePoint => (
 const containsEmoji = value => [...String(value)].some(character => isEmoji(character.codePointAt(0)));
 const findings = [];
 
+function listFiles(path) {
+  if (!fs.existsSync(path)) return [];
+  if (!fs.statSync(path).isDirectory()) return [path];
+  return fs.readdirSync(path, { withFileTypes: true }).flatMap(entry => {
+    const child = `${path}/${entry.name}`;
+    return entry.isDirectory() ? listFiles(child) : [child];
+  });
+}
+
 function auditFiles() {
-  const files = execFileSync('git', ['ls-files', '-z']).toString('utf8').split('\0').filter(Boolean);
+  let files;
+  try {
+    files = execFileSync('git', ['ls-files', '-z'], { stdio: ['ignore', 'pipe', 'ignore'] }).toString('utf8').split('\0').filter(Boolean);
+  } catch {
+    files = ['package.json', 'index.html', 'README.md', 'server.cjs', 'db', 'src', 'scripts'].flatMap(listFiles);
+  }
   for (const file of files) {
     const content = fs.readFileSync(file);
     if (content.includes(0)) continue;
